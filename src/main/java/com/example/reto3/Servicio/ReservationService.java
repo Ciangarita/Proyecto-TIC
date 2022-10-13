@@ -4,9 +4,12 @@ package com.example.reto3.Servicio;
 import com.example.reto3.Modelo.Reservation;
 import com.example.reto3.Repositorio.ReservationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+
+@Service
 
 public class ReservationService {
     @Autowired
