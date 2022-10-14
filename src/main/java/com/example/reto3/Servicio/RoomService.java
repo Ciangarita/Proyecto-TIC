@@ -26,8 +26,8 @@ public class RoomService {
         if (room.getId() == null){
             return  roomRepository.save(room);
         } else{
-            Optional<Room> category1 = roomRepository.getRoom(room.getId());
-            if (category1.isEmpty()){
+            Optional<Room> room1 = roomRepository.getRoom(room.getId());
+            if (room1.isEmpty()){
                 return roomRepository.save(room);
             }else {
                 return room;
