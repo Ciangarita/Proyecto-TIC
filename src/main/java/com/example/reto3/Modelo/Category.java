@@ -1,10 +1,9 @@
 package com.example.reto3.Modelo;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Table;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "category")
@@ -16,6 +15,18 @@ public class Category {
     private Integer id;
     private String name;
     private String description;
+
+    @OneToMany(cascade = {CascadeType.PERSIST}, mappedBy = "category")
+    @JsonIgnoreProperties({"category", "rooms"})
+    private List<Room> rooms;
+
+    public List<Room> getRooms() {
+        return rooms;
+    }
+
+    public void setRooms(List<Room> rooms) {
+        this.rooms = rooms;
+    }
 
     public Integer getId() {
         return id;

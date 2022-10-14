@@ -1,10 +1,8 @@
 package com.example.reto3.Modelo;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Table;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
@@ -19,7 +17,35 @@ public class Reservation {
     private Date devolutionDate;
     private String status = "created";
 
+    @ManyToOne()
+    @JoinColumn(name = "roomId")
+    @JsonIgnoreProperties({"reservations"})
+
+    private Room room;
+
+    @ManyToOne()
+    @JoinColumn(name = "clientId")
+    @JsonIgnoreProperties({"reservations", "messages"})
+
+    private Client client;
+
     private String score;
+
+    public Room getRoom() {
+        return room;
+    }
+
+    public void setRoom(Room room) {
+        this.room = room;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
 
     public Integer getIdReservation() {
         return idReservation;
