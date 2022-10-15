@@ -1,6 +1,7 @@
 package com.example.reto3.Servicio;
 
 
+import com.example.reto3.Modelo.Category;
 import com.example.reto3.Modelo.Client;
 import com.example.reto3.Repositorio.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,5 +36,36 @@ public class ClientService {
                 return client;
             }
         }
+    }
+
+    public Client update(Client client){
+        if (client.getIdClient() != null){
+            Optional<Client> e = clientRepository.getClient(client.getIdClient());
+            if (!e.isEmpty()) {
+                if (client.getName() != null) {
+                    e.get().setName(client.getName());
+                }
+                if (client.getAge() != null) {
+                    e.get().setAge(client.getAge());
+                }
+                if (client.getPassword() != null){
+                    e.get().setPassword(client.getPassword());
+                }
+                if (client.getEmail() != null){
+                    e.get().setEmail(client.getEmail());
+                }
+                return clientRepository.save(e.get());
+            }
+        }
+        return client;
+    }
+
+    public boolean delete(int id){
+        Boolean i = getClient(id).map(client -> {
+            clientRepository.delete(client);
+            return true;
+        }).orElse(false);
+
+        return i;
     }
 }

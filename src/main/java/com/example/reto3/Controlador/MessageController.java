@@ -11,6 +11,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/Message")
+@CrossOrigin(origins = "*")
 
 public class MessageController {
     @Autowired
@@ -30,5 +31,11 @@ public class MessageController {
     @ResponseStatus(HttpStatus.CREATED)
     public Message save(@RequestBody Message message){
         return messageService.save(message);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public Boolean delete(@PathVariable("id") int messageId){
+        return messageService.delete(messageId);
     }
 }

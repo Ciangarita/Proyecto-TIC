@@ -1,6 +1,7 @@
 package com.example.reto3.Repositorio;
 
 import com.example.reto3.Interface.RoomInterface;
+import com.example.reto3.Modelo.Category;
 import com.example.reto3.Modelo.Room;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -23,5 +24,9 @@ public class RoomRepository {
 
     public Room save(Room room){
         return roomCrudRepository.save(room);
+    }
+
+    public void delete(Room room){
+        roomCrudRepository.delete(room);
     }
 }

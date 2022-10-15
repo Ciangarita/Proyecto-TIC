@@ -11,6 +11,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping ("/api/Category")
+@CrossOrigin(origins = "*")
 
 public class CategoryController {
     @Autowired
@@ -30,5 +31,11 @@ public class CategoryController {
     @ResponseStatus(HttpStatus.CREATED)
     public Category save(@RequestBody Category category){
         return categoryService.save(category);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public Boolean delete(@PathVariable("id") int categoryId){
+        return categoryService.delete(categoryId);
     }
 }

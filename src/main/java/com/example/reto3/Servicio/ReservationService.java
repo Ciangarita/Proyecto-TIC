@@ -1,6 +1,7 @@
 package com.example.reto3.Servicio;
 
 
+import com.example.reto3.Modelo.Category;
 import com.example.reto3.Modelo.Reservation;
 import com.example.reto3.Repositorio.ReservationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,5 +36,34 @@ public class ReservationService {
                 return reservation;
             }
         }
+    }
+
+    public Reservation update(Reservation reservation){
+        if (reservation.getIdReservation() != null){
+            Optional<Reservation> e = reservationRepository.getReservation(reservation.getIdReservation());
+            if (!e.isEmpty()) {
+                if (reservation.getStartDate() != null) {
+                    e.get().setStartDate(reservation.getStartDate());
+                }
+                if (reservation.getDevolutionDate() != null) {
+                    e.get().setDevolutionDate(reservation.getDevolutionDate());
+                }
+                if (reservation.getStatus() != null){
+                    e.get().setStatus(reservation.getStatus());
+                }
+
+                return reservationRepository.save(e.get());
+            }
+        }
+        return reservation;
+    }
+
+    public boolean delete(int id){
+        Boolean i = getReservation(id).map(reservation -> {
+            reservationRepository.delete(reservation);
+            return true;
+        }).orElse(false);
+
+        return i;
     }
 }

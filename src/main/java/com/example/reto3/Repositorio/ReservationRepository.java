@@ -1,6 +1,7 @@
 package com.example.reto3.Repositorio;
 
 import com.example.reto3.Interface.ReservationInterface;
+import com.example.reto3.Modelo.Category;
 import com.example.reto3.Modelo.Reservation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -23,5 +24,9 @@ public class ReservationRepository {
 
     public Reservation save(Reservation reservation){
         return reservationCrudRepository.save(reservation);
+    }
+
+    public void delete(Reservation reservation){
+        reservationCrudRepository.delete(reservation);
     }
 }

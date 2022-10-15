@@ -11,6 +11,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/Room")
+@CrossOrigin(origins = "*")
 
 public class RoomController{
     @Autowired
@@ -26,9 +27,15 @@ public class RoomController{
         return roomService.getRoom(id);
     }
 
-    @PostMapping("/save")
+    @DeleteMapping("/save")
     @ResponseStatus(HttpStatus.CREATED)
     public Room save(@RequestBody Room room){
         return roomService.save(room);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public Boolean delete(@PathVariable("id") int roomId){
+        return roomService.delete(roomId);
     }
 }

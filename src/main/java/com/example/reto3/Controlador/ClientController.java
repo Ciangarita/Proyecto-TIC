@@ -11,6 +11,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/Client")
+@CrossOrigin(origins = "*")
 
 public class ClientController {
     @Autowired
@@ -30,5 +31,11 @@ public class ClientController {
     @ResponseStatus(HttpStatus.CREATED)
     public Client save(@RequestBody Client client){
         return clientService.save(client);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public Boolean delete(@PathVariable("id") int clientId){
+        return clientService.delete(clientId);
     }
 }

@@ -11,6 +11,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/Reservation")
+@CrossOrigin(origins = "*")
 
 public class ReservationController {
     @Autowired
@@ -26,9 +27,15 @@ public class ReservationController {
         return reservationService.getReservation(id);
     }
 
-    @PostMapping("/save")
+    @DeleteMapping("/save")
     @ResponseStatus(HttpStatus.CREATED)
     public Reservation save(@RequestBody Reservation reservation){
         return reservationService.save(reservation);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public Boolean delete(@PathVariable("id") int reservationId){
+        return reservationService.delete(reservationId);
     }
 }

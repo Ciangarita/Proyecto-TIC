@@ -1,5 +1,6 @@
 package com.example.reto3.Servicio;
 
+import com.example.reto3.Modelo.Category;
 import com.example.reto3.Modelo.Message;
 import com.example.reto3.Repositorio.MessageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,5 +35,27 @@ public class MessageService {
                 return message;
             }
         }
+    }
+
+    public Message update(Message message){
+        if (message.getIdMessage() != null){
+            Optional<Message> e = messageRepository.getMessage(message.getIdMessage());
+            if (!e.isEmpty()) {
+                if (message.getMessageText() != null) {
+                    e.get().setMessageText(message.getMessageText());
+                }
+                return messageRepository.save(e.get());
+            }
+        }
+        return message;
+    }
+
+    public boolean delete(int id){
+        Boolean i = getMessage(id).map(message -> {
+            messageRepository.delete(message);
+            return true;
+        }).orElse(false);
+
+        return i;
     }
 }
