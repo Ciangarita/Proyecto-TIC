@@ -27,7 +27,7 @@ public class RoomController{
         return roomService.getRoom(id);
     }
 
-    @DeleteMapping("/save")
+    @PostMapping("/save")
     @ResponseStatus(HttpStatus.CREATED)
     public Room save(@RequestBody Room room){
         return roomService.save(room);
