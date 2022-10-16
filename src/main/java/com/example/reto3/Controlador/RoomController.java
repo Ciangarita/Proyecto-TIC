@@ -33,6 +33,12 @@ public class RoomController{
         return roomService.save(room);
     }
 
+    @PutMapping("/update")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Room update(@RequestBody Room room){
+        return roomService.update(room);
+    }
+
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public Boolean delete(@PathVariable("id") int roomId){
