@@ -1,12 +1,16 @@
 package com.example.reto3.Servicio;
 
 
-import com.example.reto3.Modelo.Category;
 import com.example.reto3.Modelo.Reservation;
 import com.example.reto3.Repositorio.ReservationRepository;
+import com.example.reto3.Repositorio.countClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -66,4 +70,36 @@ public class ReservationService {
 
         return i;
     }
+    //Reto 5
+
+    public Status getReservationStatusReport(){
+        List<Reservation> completed = reservationRepository.getReservationByStatus("completed");
+        List<Reservation> cancelled = reservationRepository.getReservationByStatus("cancelled");
+
+        return new Status(completed.size(), cancelled.size());
+    }
+
+    public List<Reservation> getReservationByDate(String start, String end){
+        SimpleDateFormat parser = new SimpleDateFormat("yyyy-MM-dd");
+        Date startDate = new Date();
+        Date endDate = new Date();
+
+        try {
+            startDate = parser.parse(start);
+            endDate = parser.parse(end);
+        }catch (ParseException e){
+            e.printStackTrace();
+        }
+
+        if (startDate.before(endDate)){
+            return reservationRepository.getReservationByDate(startDate, endDate);
+        }else{
+            return new ArrayList<>();
+        }
+    }
+
+    public List<countClient> getTopClients(){
+        return reservationRepository.getTopClient();
+    }
+
 }

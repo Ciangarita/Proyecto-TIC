@@ -1,7 +1,9 @@
 package com.example.reto3.Controlador;
 
 import com.example.reto3.Modelo.Reservation;
+import com.example.reto3.Repositorio.countClient;
 import com.example.reto3.Servicio.ReservationService;
+import com.example.reto3.Servicio.Status;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -27,6 +29,22 @@ public class ReservationController {
         return reservationService.getReservation(id);
     }
 
+    //RETO 5
+    @GetMapping("/report-clients")
+    public List<countClient> getReservationReportClient(){
+        return reservationService.getTopClients();
+    }
+
+    @GetMapping("/report-dates/{startDate}/{endDate}")
+    public List<Reservation> getReservationReportDates(@PathVariable("startDate") String startDate, @PathVariable("endDate") String endDate){
+        return reservationService.getReservationByDate(startDate, endDate);
+    }
+
+    @GetMapping("/report-status")
+    public Status getReservationStatusReport(){
+        return reservationService.getReservationStatusReport();
+    }
+
     @DeleteMapping("/save")
     @ResponseStatus(HttpStatus.CREATED)
     public Reservation save(@RequestBody Reservation reservation){
@@ -44,4 +62,5 @@ public class ReservationController {
     public Boolean delete(@PathVariable("id") int reservationId){
         return reservationService.delete(reservationId);
     }
+
 }
